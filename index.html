@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PixelBoost Online - Free Image Resizer, Compressor & Watermark Tool</title>
+    <meta name="description"
+        content="PixelBoost Online: Instantly resize, compress, and remove watermarks from your images for free! Perfect for social media, web, and mobile. No uploads, all in your browser.">
+    <meta name="keywords"
+        content="image resizer, image compressor, watermark remover, free image editor, online image tool, aspect ratio, mobile image resizer, social media image, optimize images, PixelBoost">
+
+    <!-- Favicon - Replace with your actual favicon files -->
+    <link rel="icon" href="favicon.ico" sizes="any">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://your-app-url.com/"> <!-- Replace with your actual URL -->
+    <meta property="og:title" content="PixelBoost Online - Free Image Resizer, Compressor & Watermark Tool">
+    <meta property="og:description"
+        content="Instantly resize, compress, and remove watermarks from your images for free!">
+    <meta property="og:image" content="https://your-app-url.com/og-image.png"> <!-- Replace with URL to an OG image -->
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://your-app-url.com/"> <!-- Replace -->
+    <meta property="twitter:title" content="PixelBoost Online - Free Image Resizer, Compressor & Watermark Tool">
+    <meta property="twitter:description"
+        content="Instantly resize, compress, and remove watermarks from your images for free!">
+    <meta property="twitter:image" content="https://your-app-url.com/twitter-image.png"> <!-- Replace -->
+
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts (Example: Poppins) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+    <div id="loadingSpinner" class="loading-spinner-overlay" style="display:none;">
+        <div class="spinner"></div>
+        <p id="spinnerActionText">Processing...</p>
+    </div>
+
+    <div class="container">
+        <header class="app-header">
+            <div class="logo-area">
+                <svg id="appLogo" width="40" height="40" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 7V17L12 22L22 17V7L12 2Z" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M2 7L12 12L22 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M12 12V22" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M17 4.5L7 9.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M7 14.5L17 19.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <h1>PixelBoost <span class="online-badge">Online</span></h1>
+            </div>
+            <p class="sprint-tag">Version 1.0 - Ready to Boost!</p>
+            <button id="helpButton" class="button-style icon-button" title="Help & FAQ">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                    <path
+                        d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z" />
+                    <path d="M11 15h2v2h-2zM11 7h2v6h-2z" />
+                </svg>
+            </button>
+        </header>
+
+        <!-- Monetization Placeholder: Top Banner Ad -->
+        <div class="ad-placeholder ad-placeholder-top" title="Advertisement Area">
+            <span class="ad-label">Advertisement</span>
+            <!-- AdSense ad unit code or Auto Ads will populate this -->
+        </div>
+
+        <main>
+            <section class="tool-section upload-section animated-section">
+                <h2 class="section-title">1. Upload Your Image</h2>
+                <div class="file-input-wrapper">
+                    <input type="file" id="imageUpload" accept="image/png, image/jpeg, image/webp, image/gif"
+                        aria-label="Upload image">
+                    <label for="imageUpload" class="button-style upload-button-label">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20"
+                            height="20">
+                            <path
+                                d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z">
+                            </path>
+                        </svg>
+                        Choose Image
+                    </label>
+                </div>
+                <p id="fileName" class="file-name-display" aria-live="polite"></p>
+                <div class="image-preview-container" id="imagePreviewContainer">
+                    <img id="imagePreview" src="#" alt="Image Preview" style="display:none;">
+                    <canvas id="watermarkSelectionCanvas" style="display:none;"></canvas>
+                    <p id="previewPlaceholder" class="preview-placeholder-text">Your image will appear here. Drag to
+                        select watermark.</p>
+                </div>
+            </section>
+
+            <section class="tool-section controls-section animated-section" id="mainControlsSection"
+                style="display:none;">
+                <h2 class="section-title">2. Configure & Process</h2>
+                <div class="tabs">
+                    <button class="tab-button active" data-tab="resizeCompressTab">Resize & Compress</button>
+                    <button class="tab-button" data-tab="watermarkTab">Watermark Remover</button>
+                </div>
+
+                <div class="tab-content active" id="resizeCompressTab">
+                    <fieldset class="options-group">
+                        <legend>Dimensions & Aspect Ratio</legend>
+                        <div class="dimension-inputs">
+                            <div><label for="newWidth">Width (px):</label><input type="number" id="newWidth" min="1"
+                                    placeholder="e.g., 800"></div>
+                            <div><label for="newHeight">Height (px):</label><input type="number" id="newHeight" min="1"
+                                    placeholder="e.g., 600"></div>
+                        </div>
+                        <div class="aspect-ratio-controls">
+                            <div class="checkbox-wrapper"><input type="checkbox" id="lockAspectRatio" checked><label
+                                    for="lockAspectRatio" title="Maintain original aspect ratio">Lock Aspect
+                                    Ratio</label></div>
+                            <div><label for="aspectRatioPreset">Preset:</label><select id="aspectRatioPreset"
+                                    title="Apply common aspect ratio">
+                                    <option value="">Custom</option>
+                                    <option value="original">Original</option>
+                                    <option value="1.7777">16:9</option>
+                                    <option value="1.3333">4:3</option>
+                                    <option value="1">1:1</option>
+                                    <option value="0.5625">9:16</option>
+                                    <option value="0.8">4:5</option>
+                                </select></div>
+                        </div>
+                    </fieldset>
+                    <fieldset class="options-group">
+                        <legend>Resize Mode</legend>
+                        <div class="resize-mode-selector">
+                            <div class="radio-wrapper"><input type="radio" id="modeStretch" name="resizeMode"
+                                    value="stretch" checked><label for="modeStretch"
+                                    title="Distort to fit">Stretch</label></div>
+                            <div class="radio-wrapper"><input type="radio" id="modeFit" name="resizeMode"
+                                    value="fit"><label for="modeFit" title="Fit within dimensions (padding)">Fit</label>
+                            </div>
+                            <div class="radio-wrapper"><input type="radio" id="modeExpand" name="resizeMode"
+                                    value="expand"><label for="modeExpand" title="Fill dimensions (crop)">Expand</label>
+                            </div>
+                        </div>
+                        <div id="fitBackgroundColorDiv" class="fit-background-control" style="display:none;"><label
+                                for="fitBackgroundColor">Padding Color:</label><input type="color"
+                                id="fitBackgroundColor" value="#FFFFFF"></div>
+                    </fieldset>
+                    <fieldset class="options-group">
+                        <legend>Image Compression (JPEG/WebP)</legend>
+                        <div class="compression-controls"><label for="compressionQualityRange">Quality: <span
+                                    id="compressionQualityValue">92</span>%</label><input type="range"
+                                id="compressionQualityRange" min="10" max="100" value="92" step="1"><small>Affects JPEG
+                                & WebP.</small></div>
+                    </fieldset>
+                    <button id="previewResizeButton" class="button-style action-button primary-action">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20"
+                            height="20">
+                            <path
+                                d="M12 4.5C7.5 4.5 3.75 7.5 2.25 12c1.5 4.5 5.25 7.5 9.75 7.5s8.25-3 9.75-7.5C20.25 7.5 16.5 4.5 12 4.5zm0 11.25c-2.062 0-3.75-1.688-3.75-3.75S9.938 8.25 12 8.25s3.75 1.688 3.75 3.75-1.688 3.75-3.75 3.75zm0-6c-1.237 0-2.25 1.012-2.25 2.25s1.013 2.25 2.25 2.25 2.25-1.012 2.25-2.25S13.237 9.75 12 9.75z" />
+                        </svg>
+                        Update Preview
+                    </button>
+                </div>
+
+                <div class="tab-content" id="watermarkTab">
+                    <p class="tool-description">Select watermark on the main image preview above. Then, apply removal.
+                        Results vary.</p>
+                    <div class="watermark-controls"><button id="clearWatermarkSelectionButton"
+                            class="button-style secondary-button"><svg xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                                <path
+                                    d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z">
+                                </path>
+                            </svg>Clear Selection</button><button id="applyWatermarkRemovalButton"
+                            class="button-style action-button primary-action"><svg xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                                <path
+                                    d="M16.5 6V4.5C16.5 3.12 15.38 2 14 2h-4c-1.38 0-2.5 1.12-2.5 2.5V6H4v2h2.5l.81 9H10v2H7v2h10v-2h-3v-2h2.69l.81-9H18V6h-1.5zm-6-1.5c0-.28.22-.5.5-.5h3c.28 0 .5.22.5.5V6h-4V4.5zM8.31 15L7.5 8h9l-.81 7H8.31z">
+                                </path>
+                            </svg>Apply Basic Removal</button></div>
+                    <p id="watermarkSelectionInfo" class="info-text" aria-live="polite">Select watermark area on the
+                        image above.</p>
+                    <p class="info-text warning-text"><strong>Note:</strong> Basic removal. Works best on simple
+                        backgrounds. Complex watermarks may not be removed cleanly.</p>
+                </div>
+            </section>
+
+            <section class="tool-section output-section animated-section" id="outputSection" style="display:none;">
+                <h2 class="section-title">3. Download Processed Image</h2>
+                <div class="image-preview-container resized-preview-container"><canvas id="resizedCanvasPreview"
+                        aria-label="Preview of the processed image"></canvas>
+                    <p id="resizedPreviewPlaceholder" class="preview-placeholder-text">Processed image</p>
+                </div>
+                <p id="estimatedFileSize" class="info-text" aria-live="polite"></p>
+                <div id="successIndicator" class="success-indicator" style="display:none;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24"
+                        height="24">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                    </svg>
+                    <span>Done!</span>
+                </div>
+                <button id="downloadButton" class="button-style download-button" disabled>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20"
+                        height="20">
+                        <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"></path>
+                    </svg>
+                    Download Image
+                </button>
+                <p id="outputInfo" class="output-info-display" aria-live="polite"></p>
+            </section>
+
+            <canvas id="processingCanvas" style="display:none;" aria-hidden="true"></canvas>
+            <div id="messages" class="messages-container" role="alert" aria-live="assertive"></div>
+        </main>
+
+        <aside class="ad-placeholder ad-placeholder-sidebar" title="Advertisement Area">
+            <span class="ad-label">Advertisement</span>
+        </aside>
+
+        <section class="support-section animated-section">
+            <h2 class="section-title">Support PixelBoost Online</h2>
+            <p>If you find this tool useful, please consider supporting its development!</p>
+            <a href="https://www.buymeacoffee.com/yourusername" target="_blank" rel="noopener noreferrer"
+                class="button-style donate-button"> <!-- Replace yourusername -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                    <path
+                        d="M18.0052 4.00008H9.00516C7.90059 4.00008 7.00516 4.89551 7.00516 6.00008V9.00008H17.0052C18.1097 9.00008 19.0052 9.89551 19.0052 11.0001V15.0001C19.0052 17.2092 17.2143 19.0001 15.0052 19.0001H6.00516C4.3483 19.0001 3.00516 17.6569 3.00516 16.0001V6.00008C3.00516 3.79094 4.79603 2.00008 7.00516 2.00008H17.0052C17.5574 2.00008 18.0052 2.4478 18.0052 3.00008C18.0052 3.55228 17.5574 4.00008 17.0052 4.00008H16.0052H18.0052Z M17.0052 11.0001H7.00516V15.0001C7.00516 15.5524 7.45287 16.0001 8.00516 16.0001H15.0052C16.1097 16.0001 17.0052 15.1046 17.0052 14.0001V11.0001Z" />
+                </svg>
+                Buy Me a Coffee
+            </a>
+        </section>
+
+        <footer class="app-footer">
+            <p>© <span id="currentYear"></span> PixelBoost Online.
+                <a href="https://github.com/yourusername/pixelboost-online" target="_blank"
+                    rel="noopener noreferrer">View on GitHub</a> -
+                Licensed under MIT.
+            </p>
+            <p>All processing is done in your browser. Your images stay private.</p>
+        </footer>
+    </div>
+
+    <!-- Help Modal -->
+    <div id="helpModal" class="modal" style="display:none;">
+        <div class="modal-content animated-section">
+            <span class="close-button" id="closeHelpModal" title="Close">×</span>
+            <h2>Help & FAQ - PixelBoost Online</h2>
+            <div class="faq-item">
+                <h3>How do I use PixelBoost Online?</h3>
+                <p>1. <strong>Upload:</strong> Click "Choose Image" to select an image from your device.<br>
+                    2. <strong>Configure:</strong> Use the tabs to:
+                <ul>
+                    <li><strong>Resize & Compress:</strong> Adjust dimensions, aspect ratio, resize mode (Stretch, Fit,
+                        Expand), and compression quality. Click "Update Preview".</li>
+                    <li><strong>Watermark Remover:</strong> Drag on the main image preview (top) to select the
+                        watermark. Then click "Apply Basic Removal". This works on the current previewed image.</li>
+                </ul>
+                3. <strong>Download:</strong> Once you're happy with the preview in Section 3, click "Download Image".
+                </p>
+            </div>
+            <div class="faq-item">
+                <h3>What are the resize modes?</h3>
+                <p><strong>Stretch:</strong> Forces image to new dimensions, may distort.<br>
+                    <strong>Fit (Letterbox):</strong> Fits image within new dimensions, maintains aspect ratio, adds
+                    padding if needed (you can choose padding color).<br>
+                    <strong>Expand (Crop):</strong> Fills new dimensions, maintains aspect ratio, crops parts of image
+                    if needed.
+                </p>
+            </div>
+            <div class="faq-item">
+                <h3>How effective is the Watermark Remover?</h3>
+                <p>It's a <strong>basic</strong> tool. It works best on watermarks over simple, relatively uniform
+                    backgrounds. It attempts to fill the selected area with the average color of its surrounding border.
+                    Complex watermarks or those on intricate backgrounds may not be removed cleanly. We recommend trying
+                    it on a copy of your image first!</p>
+            </div>
+            <div class="faq-item">
+                <h3>What image formats are supported?</h3>
+                <p>You can upload PNG, JPEG, WebP, and GIF files. Output is generally PNG, or JPEG/WebP if compression
+                    is applied to those types. Animated GIFs will be processed as static images (first frame).</p>
+            </div>
+            <div class="faq-item">
+                <h3>Is it free? How do you make money?</h3>
+                <p>Yes, PixelBoost Online is completely free to use! We aim to support the site through non-intrusive
+                    advertisements and voluntary donations (like "Buy Me a Coffee").</p>
+            </div>
+            <div class="faq-item">
+                <h3>Are my images uploaded to a server?</h3>
+                <p><strong>No.</strong> All image processing happens directly in your web browser. Your images never
+                    leave your computer, ensuring your privacy.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Subtle sound for success (optional) -->
+    <audio id="successSound" preload="auto" style="display:none;">
+        <source src="success-chime.mp3" type="audio/mpeg"> <!-- Provide a small, subtle success.mp3 -->
+        <!-- Fallback to a very short data URI beep if you don't want an external file -->
+        <!-- <source src="data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YU..." type="audio/wav"> -->
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
